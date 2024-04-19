@@ -39,7 +39,7 @@ def main():
 
     for repo in repos:
         print(f"Cloning {repo}")
-        #clone_repo(repo)
+        clone_repo(repo)
         print(f"Building and running Docker for {repo}")
         directory = repo.split("/")[-1].rstrip(".git")
         container_id = build_and_run_docker(directory)
