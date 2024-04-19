@@ -10,7 +10,8 @@ def clone_repo(url):
 def build_and_run_docker(directory):
     os.chdir(directory)
     subprocess.run(["docker", "build", "-t", "student-app", "."], check=True)
-    container = subprocess.run(["docker", "run", "-p", "6001:6001", "-d", "--name", "student", "student-app"], check=True, stdout=subprocess.PIPE)
+    container = subprocess.run(["docker", "run", "--network", "new-net", "-p", "6001:6001", "-d", "--name", "student", "student-app"], check=True, stdout=subprocess.PIPE)
+    print(container)
     container_id = container.stdout.strip().decode("utf-8")
     os.chdir("..")
     return container_id
@@ -18,7 +19,7 @@ def build_and_run_docker(directory):
 def test_app(container_id):
     time.sleep(5)
     try:
-        url = (f'http://127.0.0.1:6001/help')
+        url = (f'http://student:6001/help')
         response = requests.get(url)
         print('/help:', response.text)
     except Exception as e:
