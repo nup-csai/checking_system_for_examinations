@@ -4,7 +4,11 @@ WORKDIR /app
 
 COPY . /app
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git docker.io
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Start Docker daemon
+CMD ["dockerd"]
+
+# Run checker-main.py in the background
 CMD ["python", "checker-main.py"]
