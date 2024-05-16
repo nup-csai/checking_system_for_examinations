@@ -7,6 +7,8 @@ COPY . /app
 RUN apt-get update && apt-get install -y git docker.io
 RUN pip install --no-cache-dir -r requirements.txt
 
+EXPOSE 8080
+
 # Start Docker daemon
 CMD ["dockerd"]
 
